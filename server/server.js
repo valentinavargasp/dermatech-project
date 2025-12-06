@@ -16,7 +16,30 @@ const app = express();
 // MIDDLEWARES GLOBALES
 // ============================================
 
-app.use(cors());
+// Configuración de CORS
+// Permite que el frontend se comunique con este servidor
+const corsOptions = {
+    origin: function (origin, callback) {
+        // Lista de orígenes permitidos
+        const allowedOrigins = [
+            "http://localhost:3000",
+            process.env.FRONTEND_URL, 
+        ].filter(Boolean);
+
+        if (!origin || process.env.NODE_ENV === "development") {
+            callback(null, true);
+        } else if (allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("No permitido por CORS"));
+        }
+    },
+    credentials: true, // Permite enviar cookies y headers de autenticación
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
 
 // Express.json(): Permite que Express entienda JSON en el body de las peticiones
 app.use(express.json());
