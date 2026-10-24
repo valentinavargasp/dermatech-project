@@ -1,92 +1,61 @@
-# 🏥 Dermatech Project
+# 🏥 DermaTech Project (Full-Stack Next.js)
 
-API y aplicación web para diagnóstico dermatológico asistido por IA.
+Aplicación web y API para diagnóstico dermatológico asistido por Inteligencia Artificial, migrada a una arquitectura monolítica Full-Stack moderna en **Next.js (App Router)**.
 
 ## 📋 Descripción
 
-Sistema completo para diagnóstico dermatológico que incluye:
-- **Backend**: API REST con Node.js, Express y MongoDB
-- **Frontend**: Aplicación web con Next.js
-- **IA**: Integración con Google Generative AI para análisis de imágenes
+Sistema integral para diagnóstico dermatológico que unifica:
+- **Frontend**: Aplicación web interactiva con **Next.js 16 (App Router)**, **React 19**, **TypeScript** y **Tailwind CSS v4**.
+- **Backend (API Route Handlers)**: Endpoints RESTful integrados en `src/app/api/*` con **MongoDB (Mongoose)**, **JWT** y **Cloudinary**.
+- **IA Multimodal**: Integración con **Google Gemini (`gemini-2.5-flash`)** para análisis clínico y visual de lesiones cutáneas.
 
 ## 🚀 Tecnologías
 
-### Backend
-- Node.js
-- Express.js
-- MongoDB (Atlas)
-- Mongoose
-- JWT para autenticación
-- Cloudinary para almacenamiento de imágenes
-- Google Generative AI
-
-### Frontend
-- Next.js
-- TypeScript
-- React
+- **Framework Full-Stack**: Next.js 16 (App Router) + React 19 + TypeScript
+- **Estilos**: Tailwind CSS v4
+- **Base de Datos**: MongoDB Atlas + Mongoose 8
+- **Autenticación**: JSON Web Tokens (`jsonwebtoken` + `bcryptjs`)
+- **Almacenamiento Multimedia**: Cloudinary (`cloudinary`)
+- **Inteligencia Artificial**: Google Generative AI (`@google/generative-ai`)
 
 ## 📁 Estructura del Proyecto
 
 ```
 dermatech-project/
-├── server/          # Backend API
-│   ├── config/      # Configuraciones
-│   ├── controllers/ # Controladores
-│   ├── middleware/  # Middlewares
-│   ├── models/      # Modelos de MongoDB
-│   ├── routes/      # Rutas de la API
-│   ├── services/    # Servicios
-│   └── server.js    # Archivo principal del servidor
-│
-└── client/          # Frontend Next.js
-    └── src/
-        └── app/     # Aplicación Next.js
+├── public/
+│   └── uploads/              # Íconos e imágenes estáticas
+├── src/
+│   ├── app/
+│   │   ├── api/              # Route Handlers (Backend API)
+│   │   │   ├── auth/         # /api/auth/login, /api/auth/perfil, /api/auth/logout
+│   │   │   ├── afecciones/   # /api/afecciones y /api/afecciones/[id]
+│   │   │   ├── sintomas/     # /api/sintomas y /api/sintomas/[id]
+│   │   │   ├── consultas/    # /api/consultas, /api/consultas/recientes y /api/consultas/[id]
+│   │   │   └── estadisticas/ # /api/estadisticas y /api/estadisticas/severidad
+│   │   ├── login/            # Pantalla de Inicio de Sesión
+│   │   ├── dashboard/        # Panel Principal y Estadísticas
+│   │   ├── consulta/         # Wizard de Diagnóstico en 3 pasos
+│   │   ├── resultado/        # Resultado de Consulta + Análisis IA
+│   │   ├── afecciones/       # Listado, Detalle ([id]) y Formulario de Afecciones
+│   │   └── sintomas/         # Gestión CRUD de Síntomas
+│   ├── components/           # Componentes reutilizables (Navbar, ImageModal)
+│   ├── context/              # Estado global de sesión, cliente API y notificaciones
+│   ├── lib/                  # Conexión MongoDB, Seed, Auth JWT, Cloudinary y Gemini
+│   └── models/               # Modelos Mongoose (Usuario, Afeccion, Sintoma, Consulta)
+├── next.config.ts
+├── package.json
+└── tsconfig.json
 ```
 
-## ⚙️ Configuración
+## ⚙️ Configuración y Ejecución Local
 
-### Backend
-
-1. Instalar dependencias:
+1. **Instalar dependencias:**
 ```bash
-cd server
 npm install
 ```
 
-2. Configurar variables de entorno:
-```bash
-cp .env.example .env
-# Editar .env con tus credenciales
-```
-
-3. Iniciar servidor:
-```bash
-npm run dev
-```
-
-El servidor correrá en `http://localhost:9000`
-
-### Frontend
-
-1. Instalar dependencias:
-```bash
-cd client
-npm install
-```
-
-2. Iniciar aplicación:
-```bash
-npm run dev
-```
-
-La aplicación correrá en `http://localhost:3000`
-
-## 🔐 Variables de Entorno
-
-### Server (.env)
-```
-PORT=9000
-NODE_ENV=development
+2. **Configurar variables de entorno (`.env.local`):**
+```env
 MONGODB_URI=mongodb+srv://...
 JWT_SECRET=...
 JWT_EXPIRE=7d
@@ -96,39 +65,20 @@ CLOUDINARY_API_SECRET=...
 GOOGLE_AI_API_KEY=...
 ```
 
-## 📝 Scripts Disponibles
+3. **Iniciar el servidor de desarrollo:**
+```bash
+npm run dev
+```
 
-### Backend
-- `npm start` - Inicia el servidor en producción
-- `npm run dev` - Inicia el servidor en modo desarrollo con nodemon
+La aplicación y la API correrán unificadas en `http://localhost:3000`.
 
-### Frontend
-- `npm run dev` - Inicia el servidor de desarrollo
-- `npm run build` - Construye la aplicación para producción
-- `npm start` - Inicia el servidor de producción
+## ☁️ Despliegue en Vercel
 
-## 🗄️ Base de Datos
-
-El proyecto usa MongoDB Atlas. La base de datos se crea automáticamente cuando se inserta el primer documento.
-
-## 📚 API Endpoints
-
-(Se documentarán los endpoints aquí)
-
-## 🤝 Contribuir
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
+Al ser una aplicación Next.js Full-Stack en la raíz del repositorio:
+1. Importa el repositorio `dermatech-project` en Vercel.
+2. Configura las variables de entorno (`MONGODB_URI`, `JWT_SECRET`, `CLOUDINARY_*`, `GOOGLE_AI_API_KEY`) en el panel de Vercel.
+3. Haz clic en **Deploy** (no requiere configuraciones adicionales ni `vercel.json`).
 
 ## 👤 Autor
 
 Valentina Vargas Pescara
-
----
-
-**Nota**: Este proyecto está en desarrollo activo.
-

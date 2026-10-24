@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: #2C5F7C;
+  --color-primary-dark: #1e4357;
+  --color-primary-light: #3d7a9a;
+  --color-secondary: #4A9EBF;
+  --color-secondary-light: #6db3d4;
+  --color-accent: #5FD4A6;
+  --color-accent-dark: #4ab88c;
+  --color-warning: #FF9F66;
+  --color-danger: #FF6B6B;
+  --color-success: #5FD4A6;
+  --color-info: #4A9EBF;
+  --color-background: #F8FAFB;
+  --color-background-card: #FFFFFF;
+  --color-background-hover: #f1f5f8;
+  --color-text-primary: #2D3748;
+  --color-text-secondary: #718096;
+  --color-text-light: #A0AEC0;
+  --color-border: #E2E8F0;
+}
+
+@theme inline {
+  --color-primary: #2C5F7C;
+  --color-primary-dark: #1e4357;
+  --color-primary-light: #3d7a9a;
+  --color-secondary: #4A9EBF;
+  --color-secondary-light: #6db3d4;
+  --color-accent: #5FD4A6;
+  --color-accent-dark: #4ab88c;
+  --color-warning: #FF9F66;
+  --color-danger: #FF6B6B;
+  --color-success: #5FD4A6;
+  --color-info: #4A9EBF;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+@keyframes floatShape {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(30px, -30px) rotate(120deg);
+  }
+  66% {
+    transform: translate(-20px, 20px) rotate(240deg);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.animate-float-slow {
+  animation: floatShape 20s ease-in-out infinite;
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
